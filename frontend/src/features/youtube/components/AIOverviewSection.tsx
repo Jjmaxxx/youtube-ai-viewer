@@ -17,7 +17,7 @@ export default function AIOverviewSection({ details }: Props) {
     const fetchAiOverview = async () => {
       setLoading(true);
       try {
-        const res = await post<AIResponse>('/analyze/video', { ...details });
+        const res = await post<AIResponse, VideoDetailsResponse>('/analyze/video', { ...details });
         setMessage(res.message);
       } catch (err) {
         console.error('AI overview failed:', err);

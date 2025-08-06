@@ -1,6 +1,6 @@
 const baseUrl = import.meta.env.VITE_APP_BACKEND_URL;
 
-export async function post<TResponse, TBody extends Record<string, unknown>>(
+export async function post<TResponse, TBody>(
   path: string,
   body: TBody
 ): Promise<TResponse> {

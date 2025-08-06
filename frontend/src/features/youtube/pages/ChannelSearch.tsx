@@ -16,7 +16,7 @@ export default function ChannelSearch() {
     setLoading(true);
 
     try {
-      const data = await post<ScrapedChannelData>('/channel/scrape', {
+      const data = await post<ScrapedChannelData, { channel_id: string }>('/channel/scrape', {
         channel_id: channelId.trim(),
       });
       navigate(`/channel/${channelId}`, { state: { data } });

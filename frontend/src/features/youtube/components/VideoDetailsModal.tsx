@@ -25,7 +25,7 @@ export default function VideoDetailsModal({ videoId, open, onOpenChange }: Video
     const fetchDetails = async () => {
       setLoading(true);
       try {
-        const data = await post<VideoDetailsResponse>('/video/video_details', {
+        const data = await post<VideoDetailsResponse, { video_id: string }>('/video/video_details', {
           video_id: videoId,
         });
         setDetails(data);
