@@ -8,7 +8,7 @@ def video_analysis_prompt(video: dict, comments: list, transcript: str) -> str:
     {transcript}
 
     COMMENTS
-    {chr(10).join(comments[:30])}
+    {chr(10).join(comments)}
 
     ANALYSIS TASKS
     1. **Core Idea**  

@@ -37,6 +37,8 @@ cp .env.sample .env
 
 3. Open .env and update any variables as needed.
 
+4. Ensure that the Google API Key has access to Youtube Data API.
+
 ### 3. Run the App
 In the root directory, run:
 ```bash
