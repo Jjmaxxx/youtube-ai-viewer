@@ -69,8 +69,6 @@ ruff check
 
 ### 5. Thoughts and Considerations
 
-- **File-Based Caching**  
-  This project uses a simple file-based caching system instead of a full-fledged database. This decision was made due to the absence of specified database requirements and to keep the setup lightweight and dependency-free.
-
-- **Avoiding Redundant API Calls**  
-  Caching helps prevent repeated and unnecessary API requests to third-party services such as OpenAI and ScrapingDog, which could result in increased latency or cost. Cached responses are stored using hashed keys based on input data, enabling fast lookups and reusability of previously fetched or computed results.
+- This project uses a simple file-based caching system instead of a full-fledged database. This decision was made due to the absence of specified database requirements and to keep the setup lightweight and dependency-free.
+- Caching helps prevent repeated and unnecessary API requests to third-party services such as OpenAI and ScrapingDog, which could result in increased latency or cost. Cached responses are stored using hashed keys based on input data, enabling fast lookups and reusability of previously fetched or computed results.
+- Docker was used to ensure consistent development and deployment environments across systems, simplifying onboarding and eliminating "it works on my machine" issues.
