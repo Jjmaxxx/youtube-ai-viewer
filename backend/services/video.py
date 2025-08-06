@@ -1,11 +1,17 @@
 import os
 from googleapiclient.discovery import build
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-youtube = build('youtube', 'v3', developerKey=GOOGLE_API_KEY, static_discovery=False)
 from youtube_transcript_api import YouTubeTranscriptApi
-from youtube_transcript_api._errors import TranscriptsDisabled, NoTranscriptFound, VideoUnavailable
+from youtube_transcript_api._errors import (
+    TranscriptsDisabled,
+    NoTranscriptFound,
+    VideoUnavailable,
+)
 
-def get_transcript(video_id: str, language_priority=['en']) -> str:
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+youtube = build("youtube", "v3", developerKey=GOOGLE_API_KEY, static_discovery=False)
+
+
+def get_transcript(video_id: str, language_priority=["en"]) -> str:
     try:
         ytt_api = YouTubeTranscriptApi()
         transcript = ytt_api.fetch(video_id, languages=language_priority)
@@ -15,10 +21,10 @@ def get_transcript(video_id: str, language_priority=['en']) -> str:
     except Exception as e:
         return f"Transcript error: {str(e)}"
 
+
 def get_video_details(video_id: str) -> dict:
     request = youtube.videos().list(
-        part="snippet,contentDetails,statistics",
-        id=video_id
+        part="snippet,contentDetails,statistics", id=video_id
     )
     response = request.execute()
 
@@ -39,8 +45,9 @@ def get_video_details(video_id: str) -> dict:
         "view_count": statistics.get("viewCount"),
         "like_count": statistics.get("likeCount"),
         "comment_count": statistics.get("commentCount"),
-        "duration": content_details["duration"]
+        "duration": content_details["duration"],
     }
+
 
 def get_comments(video_id: str, max_comments: int = 30) -> list[str]:
     results = []
@@ -49,7 +56,7 @@ def get_comments(video_id: str, max_comments: int = 30) -> list[str]:
         videoId=video_id,
         maxResults=min(max_comments, 100),
         textFormat="plainText",
-        order="relevance"
+        order="relevance",
     )
     response = request.execute()
     for item in response.get("items", []):
@@ -61,13 +68,10 @@ def get_comments(video_id: str, max_comments: int = 30) -> list[str]:
 
     return results
 
+
 def get_full_video_data(video_id: str) -> dict:
     details = get_video_details(video_id)
     comments = get_comments(video_id, max_comments=30)
     transcript = get_transcript(video_id)
 
-    return {
-        "video": details,
-        "comments": comments,
-        "transcript": transcript
-    }
+    return {"video": details, "comments": comments, "transcript": transcript}

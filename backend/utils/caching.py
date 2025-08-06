@@ -2,7 +2,9 @@ import hashlib
 import os
 import json
 from utils.helpers import get_cache_dir
+
 CACHE_DIR = get_cache_dir()
+
 
 def get_cache(key):
     path = os.path.join(CACHE_DIR, f"{key}.json")
@@ -10,6 +12,7 @@ def get_cache(key):
         with open(path, "r") as f:
             return json.load(f)
     return None
+
 
 def set_cache(key, value):
     path = os.path.join(CACHE_DIR, f"{key}.json")

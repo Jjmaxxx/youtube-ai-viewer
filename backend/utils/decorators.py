@@ -1,6 +1,7 @@
 from flask import jsonify
 from functools import wraps
 from utils.caching import get_cache, set_cache, make_cache_key
+import json
 
 def format_response(func):
     @wraps(func)
@@ -14,6 +15,7 @@ def format_response(func):
 
     return wrapper
 
+
 def use_cache(get_key_from_request):
     def decorator(f):
         @wraps(f)
@@ -24,12 +26,14 @@ def use_cache(get_key_from_request):
                 return cached
 
             result = f(*args, **kwargs)
-            if isinstance(result, tuple):
-                data, status = result
-                if status == 200:
-                    set_cache(key, data)
-            elif isinstance(result, dict):
+            
+            try:
+                json.dumps(result)
                 set_cache(key, result)
+            except Exception as e:
+                print(f"Skipping cache for key {key}: {e}")
             return result
+
         return wrapped
+
     return decorator
