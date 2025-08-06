@@ -41,3 +41,36 @@ cp .env.sample .env
 In the root directory, run:
 ```bash
 docker compose -f docker-compose.dev.yml up
+```
+
+### 4. Formatting and Linting
+
+You can run formatting and linting commands by exec'ing into the respective Docker containers.
+
+#### Frontend
+
+Inside the `frontend` container, run:
+
+```bash
+npm run format
+npm run lint
+npm run lint:fix
+```
+
+#### Backend
+
+Inside the `backend` container, run:
+
+```bash
+ruff format
+ruff check
+```
+
+
+### 5. Thoughts and Considerations
+
+- **File-Based Caching**  
+  This project uses a simple file-based caching system instead of a full-fledged database. This decision was made due to the absence of specified database requirements and to keep the setup lightweight and dependency-free.
+
+- **Avoiding Redundant API Calls**  
+  Caching helps prevent repeated and unnecessary API requests to third-party services such as OpenAI and ScrapingDog, which could result in increased latency or cost. Cached responses are stored using hashed keys based on input data, enabling fast lookups and reusability of previously fetched or computed results.
