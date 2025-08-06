@@ -1,9 +1,6 @@
 const baseUrl = import.meta.env.VITE_APP_BACKEND_URL;
 
-export async function post<TResponse, TBody>(
-  path: string,
-  body: TBody
-): Promise<TResponse> {
+export async function post<TResponse, TBody>(path: string, body: TBody): Promise<TResponse> {
   const response = await fetch(`${baseUrl}${path}`, {
     method: 'POST',
     headers: {

@@ -10,8 +10,8 @@ export type PartialVideoWithId = Partial<Omit<ScrapedChannelVideoData, 'id'>> &
   Pick<ScrapedChannelVideoData, 'id'>; // only id required
 
 export interface ScrapedVideoSection {
-    section_title: string;
-    videos: Array<ScrapedChannelVideoData>;
+  section_title: string;
+  videos: Array<ScrapedChannelVideoData>;
 }
 export interface ScrapedChannelData {
   about: {

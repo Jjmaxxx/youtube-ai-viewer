@@ -25,9 +25,12 @@ export default function VideoDetailsModal({ videoId, open, onOpenChange }: Video
     const fetchDetails = async () => {
       setLoading(true);
       try {
-        const data = await post<VideoDetailsResponse, { video_id: string }>('/video/video_details', {
-          video_id: videoId,
-        });
+        const data = await post<VideoDetailsResponse, { video_id: string }>(
+          '/video/video_details',
+          {
+            video_id: videoId,
+          },
+        );
         setDetails(data);
       } catch (err) {
         console.error('Failed to fetch video details:', err);
